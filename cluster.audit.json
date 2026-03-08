@@ -5,11 +5,11 @@
   },
   {
     "repo": "Riverbraid-Action-Gold",
-    "merkle": "e30c581767f50be370edca30f6c041b3582d674320edb58cf44d358e41a8c0c6"
+    "merkle": "58a7d9fc154e2b4f998d984aee81c9be9e59ed8db8761838bb75510c386f3bef"
   },
   {
     "repo": "Riverbraid-Audio-Gold",
-    "merkle": "036245acfc28082b2023199ed76cbfed5bee6905ba0892354e7a0432e88f191b"
+    "merkle": "ec6187d49afde5ec3214644ae2d0d2dbc21013ee1ebdaf0e6d45f5e8bad2fffa"
   },
   {
     "repo": "Riverbraid-Cognition",
@@ -29,7 +29,7 @@
   },
   {
     "repo": "Riverbraid-Golds",
-    "merkle": "256be91e1d8b5edfdff6273b8718609bcd293b6404519a0d3a5c1e788b8a53b7"
+    "merkle": "9442c79e063361d1453564db1f3edd2c051b4c03ef3492a8cd90b369dc90f36b"
   },
   {
     "repo": "Riverbraid-Harness-Gold",
@@ -57,6 +57,6 @@
   },
   {
     "repo": "Riverbraid-Vision-Gold",
-    "merkle": "df6c539d73451f8d2be0641493b2120b0b98ff3f1c3453a0357fff57bb388a04"
+    "merkle": "9731e8fadae1e0fd2cd1898dc275e0f309237a2155ab476637f3c8e136fb0d18"
   }
 ]
