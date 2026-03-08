@@ -1,3 +1,7 @@
 {
-  "Riverbraid-Core": "63a8651b214666b097ea141d7b755d9f5006acaaf7441925bd4286323e05ef13"
+  "Riverbraid-Action-Gold": "93ed7650f9620c99903aa44654a109fa92b50b4b7517b1752965d191fa76b700",
+  "Riverbraid-Audio-Gold": "61ff8da98a1cdd82f92fbb09b5285d2e14395145b7618185db713dab0a0482cc",
+  "Riverbraid-Core": "f738accd164b0ba67f1b5060b167f8452a8dede4aa7f667cb1333bd6b32d3774",
+  "Riverbraid-DiskGov-Gold": "821c33167f6272c565f92c568f3bb88a5113f6db44c384d35e5fd309191aca00",
+  "Riverbraid-Vision-Gold": "2e37bc9aa677c9a73b7a2be2d44be8bc12ecb73adcf2ccc784fba276dd61c8e9"
 }

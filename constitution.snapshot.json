@@ -1,6 +1,6 @@
 {
   "version": "1.3",
-  "merkleRoot": "e1df18aff018f5260f544a1a88ce911d614c4c060315cc456d0cafeea0d374cf",
+  "merkleRoot": "ad140b86ad48529b6eb99f9f403b1d4ddf5d496275973026af04365cee44dab2",
   "threshold": 2,
   "publicKeys": {
     "custodianA": "302a300506032b657003210032514e7920eee9e90a4200a554bbf3c229071f7d8d12d74634b69533bacae244",
