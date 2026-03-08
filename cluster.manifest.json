@@ -1,7 +1,17 @@
 {
-  "Riverbraid-Action-Gold": "93ed7650f9620c99903aa44654a109fa92b50b4b7517b1752965d191fa76b700",
-  "Riverbraid-Audio-Gold": "61ff8da98a1cdd82f92fbb09b5285d2e14395145b7618185db713dab0a0482cc",
-  "Riverbraid-Core": "f738accd164b0ba67f1b5060b167f8452a8dede4aa7f667cb1333bd6b32d3774",
-  "Riverbraid-DiskGov-Gold": "821c33167f6272c565f92c568f3bb88a5113f6db44c384d35e5fd309191aca00",
-  "Riverbraid-Vision-Gold": "2e37bc9aa677c9a73b7a2be2d44be8bc12ecb73adcf2ccc784fba276dd61c8e9"
+  ".github": "cb483dc4639f52a987977596a39a8e40e96041854e57df3a4a38cb9853a6cff7",
+  "Riverbraid-Action-Gold": "e30c581767f50be370edca30f6c041b3582d674320edb58cf44d358e41a8c0c6",
+  "Riverbraid-Audio-Gold": "036245acfc28082b2023199ed76cbfed5bee6905ba0892354e7a0432e88f191b",
+  "Riverbraid-Cognition": "adb4de93221349aa14fb0790533ff9ab0f8c15f0f8fb437816d4627d0b9ddd0b",
+  "Riverbraid-Core": "42edc2dc825a003bdebce9ae88954aca6f956e8cd6f634c7d255ab229d529ffa",
+  "Riverbraid-Crypto-Gold": "7808d69f6d167d87f984898eaf7c4928cb30d22f2f28b13241bd7bed0a3073e6",
+  "Riverbraid-DiskGov-Gold": "bf8d1b4a7b6442b524e8acb3dfb28de85c64e33009a0143b6f91476d5e2e4651",
+  "Riverbraid-Golds": "256be91e1d8b5edfdff6273b8718609bcd293b6404519a0d3a5c1e788b8a53b7",
+  "Riverbraid-Harness-Gold": "2a7b692ed554d70d3b3129865663bd1457c7c8b2b83067343e980ec4b518bf00",
+  "Riverbraid-Integration-Gold": "3a2cd5f1237c08852be07e1a28454a54aa5bec3b3bfa3353479a22463be7a8e0",
+  "Riverbraid-Judicial-Gold": "bb3b77c5d3869ba7c998985637f8f824f8772e62531e6295f08aa3d58c90f53c",
+  "Riverbraid-Memory-Gold": "de59414b3446abca2cc1a1533dc87f15efd99c936338a4ef6835c8c3795d23e6",
+  "Riverbraid-Refusal-Gold": "74e9161a32adbf5aa06ecb7045ceb2f3d3cd75d2fad6ee6f2edf4128aa3f5563",
+  "Riverbraid-Temporal-Gold": "92d247d6a3f69fb0b1a51fedf8dd01025ac415e1f9657de793611eb0ec2e980a",
+  "Riverbraid-Vision-Gold": "df6c539d73451f8d2be0641493b2120b0b98ff3f1c3453a0357fff57bb388a04"
 }
