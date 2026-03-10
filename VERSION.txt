@@ -1,0 +1,6 @@
+v1.4 - Cryptographic Persistence Release
+- Migrated step counter to uint64_t.
+- Implemented SHA-256 HMAC for state integrity.
+- Added hardware-locked unique ID keying.
+- Established 48-byte packed state invariant.
+- Enabled USB-Serial state broadcasting.

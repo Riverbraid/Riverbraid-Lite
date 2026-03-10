@@ -1,0 +1,1 @@
+add_executable(riverbraid_v1_4 src/main.c src/riverbraid_v1_4.c src/persistence.c src/integrity.c platform/crypto/rb_sha256.c)

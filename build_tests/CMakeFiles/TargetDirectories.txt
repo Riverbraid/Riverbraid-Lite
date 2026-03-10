@@ -1,0 +1,3 @@
+/workspaces/Riverbraid-Lite/build_tests/CMakeFiles/unit_tests.dir
+/workspaces/Riverbraid-Lite/build_tests/CMakeFiles/edit_cache.dir
+/workspaces/Riverbraid-Lite/build_tests/CMakeFiles/rebuild_cache.dir

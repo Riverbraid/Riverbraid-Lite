@@ -1,0 +1,1 @@
+/usr/bin/arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -g -O3 -DNDEBUG -Wl,--build-id=none CMakeFiles/unit_tests.dir/tests/test_vectors.c.o CMakeFiles/unit_tests.dir/src/riverbraid_v1_4.c.o CMakeFiles/unit_tests.dir/platform/crypto/rb_sha256.c.o CMakeFiles/unit_tests.dir/src/integrity.c.o -o unit_tests.elf 

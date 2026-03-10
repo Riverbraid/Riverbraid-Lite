@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/CMakeFiles/picotoolBuild"
+		},
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/CMakeFiles/picotoolBuild.rule"
+		},
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/CMakeFiles/picotoolBuild-complete.rule"
+		},
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/picotool/src/picotoolBuild-stamp/picotoolBuild-build.rule"
+		},
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/picotool/src/picotoolBuild-stamp/picotoolBuild-configure.rule"
+		},
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/picotool/src/picotoolBuild-stamp/picotoolBuild-download.rule"
+		},
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/picotool/src/picotoolBuild-stamp/picotoolBuild-install.rule"
+		},
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/picotool/src/picotoolBuild-stamp/picotoolBuild-mkdir.rule"
+		},
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/picotool/src/picotoolBuild-stamp/picotoolBuild-patch.rule"
+		},
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/picotool/src/picotoolBuild-stamp/picotoolBuild-test.rule"
+		},
+		{
+			"file" : "/workspaces/Riverbraid-Lite/build/picotool/src/picotoolBuild-stamp/picotoolBuild-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"picotoolBuild"
+		],
+		"name" : "picotoolBuild"
+	}
+}
