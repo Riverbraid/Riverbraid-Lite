@@ -1,15 +1,16 @@
-### 11. Riverbraid-Lite: Control Spine
-**Lightweight stationary baseline with Sensory Triad and DiskGov integration.**
+# Riverbraid-Lite v1.4
+[![Security Audit](https://img.shields.io/badge/Security-Verified-success)](docs/DESIGN.md)
 
-#### **Overview**
-`Riverbraid-Lite` establishes the **Control Spine**, a stationary baseline for the Riverbraid architecture. It integrates the **Full Sensory Triad** with **DiskGov** (Disk Governance), providing a compact version of the governance-locked architecture suitable for smaller implementations or initial baselines.
+## 📂 Repository Map
+| Directory | Purpose |
+| :--- | :--- |
+| `src/` | Core Logic & State Machine |
+| `include/` | API Definitions & Headers |
+| `platform/` | Hardware Abstraction Layer (HAL) |
+| `tests/` | Unit Tests & Tamper Detection |
+| `docs/` | Design Architecture & Logic Maps |
 
-#### **Core Modules**
-* **The Enclave:** `enclave.mjs` provides a secure, deterministic execution environment.
-* **The Custodian:** `custodian.mjs` manages the lifecycle and hygiene of the control spine.
-* **The Gate:** `gate.mjs` enforces the stationary baseline for all incoming signals.
-* **Audit Ledger:** Records all system actions in `ledger.root` for historical auditing.
-
-#### **Status**
-* **Version:** v1.3.
-* **Audit Status:** Full Sensory Triad + DiskGov Integration Complete.
+## 🚀 Quick Start
+\`\`\`bash
+cd build_tests && cmake .. && make && ./unit_tests
+\`\`\`
