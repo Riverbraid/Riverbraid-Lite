@@ -1,0 +1,7 @@
+{
+  "anchor_id": "v2.0-GENESIS-SEAL",
+  "sequence": 1,
+  "bridge_hash": "ecdb5985747d937eba237b90bce187fae27c28d22a2d2020de27b7929d8c5edb",
+  "status": "PRODUCTION_SEALED",
+  "timestamp": "$(date -u)"
+}

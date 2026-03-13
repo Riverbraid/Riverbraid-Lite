@@ -1,0 +1,11 @@
+{
+  "version": "2.0",
+  "sequence": 0,
+  "guardians": [
+    {"id": 1, "fingerprint": "PENDING_GUARDIAN_1"},
+    {"id": 2, "fingerprint": "PENDING_GUARDIAN_2"},
+    {"id": 3, "fingerprint": "PENDING_GUARDIAN_3"}
+  ],
+  "petal_mapping": 10,
+  "determinism": "PROVABLE"
+}

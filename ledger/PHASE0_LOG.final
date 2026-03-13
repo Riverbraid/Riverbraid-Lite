@@ -1,0 +1,13 @@
+[1m— Phase 0: Toolchain Presence —[0m
+[0;32m[PASS][0m gcc detected
+[0;32m[PASS][0m python3 detected
+[0;32m[PASS][0m gpg detected
+[0;32m[PASS][0m xxd detected
+[0;32m[PASS][0m jq detected
+
+[1m— Phase 0: Memory Structural Check —[0m
+[1;33m[WARN][0m Struct size definition not found. Checking source...
+
+[1m— Phase 0: Static Entropy Scan —[0m
+
+[1m[0;32m[PHASE 0 READY][0m
