@@ -1,34 +1,57 @@
 #include "rb_cluster_state.h"
 #include <string.h>
 
-/**
- * rb_cluster_reseal
- * Hardened state transition. 
- * Allows Petal 8 (Action) to use its first reserved byte for the Action Code.
- */
-int rb_cluster_reseal(rb_cluster_state_t *state, void (*sha256)(const uint8_t*, size_t, uint8_t*)) {
-    if (state == NULL || sha256 == NULL) return -1;
+typedef void (*sha256_func)(const uint8_t*, size_t, uint8_t*);
 
-    // 1. Validate reserved bytes (Integrity Check)
-    for (int i = 0; i < RB_PETAL_COUNT; i++) {
-        for (int j = 0; j < 31; j++) {
-            // EXCEPTION: Petal 8, Reserved Byte 0 is our Action Code.
-            if (i == 8 && j == 0) continue; 
+void rb_cluster_reseal(rb_cluster_state_t *state, sha256_func hash_fn) {
+    uint8_t layer[16][32];
+    uint8_t temp[65];
 
-            if (state->petals[i].reserved[j] != 0) return -2; // ERR_ENTROPY_DETECTED
+    // --- Build Leaf Layer ---
+    for (int i = 0; i < 16; i++) {
+        if (i < 10) {
+            uint8_t raw[32];
+            if (i == 2) memset(raw, 0, 32);
+            else memcpy(raw, state->petals[i].hash, 32);
+            temp[0] = 0x00; // Leaf Domain
+            memcpy(temp + 1, raw, 32);
+            hash_fn(temp, 33, layer[i]);
+        }
+        else if (i >= 10 && i <= 13) {
+            uint8_t zero[32] = {0};
+            temp[0] = 0x00; // Padding Leaf
+            memcpy(temp + 1, zero, 32);
+            hash_fn(temp, 33, layer[i]);
+        }
+        else if (i == 14) {
+            const char *ver = "2.0.0";
+            temp[0] = 0x03; // Version Domain
+            memset(temp + 1, 0, 32);
+            memcpy(temp + 1, ver, strlen(ver));
+            hash_fn(temp, 1 + strlen(ver), layer[i]);
+        }
+        else if (i == 15) {
+            uint8_t seq_raw[32] = {0};
+            for (int b = 0; b < 8; b++)
+                seq_raw[b] = (state->sequence >> (8 * b)) & 0xFF;
+            temp[0] = 0x02; // Sequence Domain
+            memcpy(temp + 1, seq_raw, 32);
+            hash_fn(temp, 33, layer[i]);
         }
     }
 
-    // 2. Increment Sequence
-    state->sequence++;
+    // --- Build Internal Nodes ---
+    int nodes = 16;
+    while (nodes > 1) {
+        for (int i = 0; i < nodes / 2; i++) {
+            temp[0] = 0x01; // Internal Node Domain
+            memcpy(temp + 1, layer[i*2], 32);
+            memcpy(temp + 33, layer[i*2 + 1], 32);
+            hash_fn(temp, 65, layer[i]);
+        }
+        nodes /= 2;
+    }
 
-    // 3. Generate the new Cluster Root (Hash of all 648 bytes)
-    uint8_t root[32];
-    sha256((const uint8_t*)state, 648, root);
-
-    // 4. Commit Root to Ledger (Petal 2)
-    memcpy(state->petals[2].hash, root, 32);
+    memcpy(state->petals[2].hash, layer[0], 32);
     state->petals[2].status = 1;
-
-    return 0;
 }
