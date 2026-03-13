@@ -1,0 +1,8 @@
+{
+  "name": "riverbraid-vision-gold",
+  "version": "1.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Geometric Invariants and Visual Spatial Anchors",
+  "main": "vision.mjs"
+}

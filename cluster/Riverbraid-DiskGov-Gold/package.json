@@ -1,0 +1,8 @@
+{
+  "name": "riverbraid-diskgov-gold",
+  "version": "1.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Physical Governance & Threshold Logic for Riverbraid-Lite",
+  "main": "diskgov.mjs"
+}

@@ -1,0 +1,15 @@
+{
+  "repo": "riverbraid-core",
+  "version": "1.3.0",
+  "merkleRoot": "08e829",
+  "policy": "fail-closed",
+  "governed_files": [
+    "README.md",
+    "package.json",
+    "identity.contract.json"
+  ],
+  "invariants": {
+    "deterministic": true,
+    "entropy_ban": true
+  }
+}

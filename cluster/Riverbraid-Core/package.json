@@ -1,0 +1,14 @@
+{
+  "name": "riverbraid-core",
+  "version": "1.3.0",
+  "description": "The Frozen Core of the Riverbraid system.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "node verify.mjs"
+  }
+}

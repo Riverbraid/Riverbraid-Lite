@@ -1,0 +1,5 @@
+Riverbraid Cluster Architecture v1.3
+Status: STATIONARY
+Architecture: Governance-Locked / Fail-Closed
+Nodes: 10 Petals + 1 Control Spine
+Philosophy: Capacity Control separated from Intelligence.
