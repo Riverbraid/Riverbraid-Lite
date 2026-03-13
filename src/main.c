@@ -4,13 +4,13 @@
 #include "integrity.h"
 
 // Note: Ensure persistence functions are declared if not in riverbraid_v1_4.h
-void rb_persistence_save(const rb_state_t *state);
-bool rb_persistence_load(rb_state_t *state);
-void rb_v1_4_init(rb_state_t *state);
+void rb_persistence_save(const rb_cluster_state_t *state);
+bool rb_persistence_load(rb_cluster_state_t *state);
+void rb_v1_4_init(rb_cluster_state_t *state);
 
 int main() {
     stdio_init_all();
-    rb_state_t state;
+    rb_cluster_state_t state;
 
     // Small delay to allow USB serial to stabilize
     sleep_ms(2000);

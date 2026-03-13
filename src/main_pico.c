@@ -6,7 +6,7 @@
 int main() {
     stdio_init_all();
     
-    rb_state_t state;
+    rb_cluster_state_t state;
     // Initializing state...
     
     while (true) {

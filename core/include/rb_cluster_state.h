@@ -13,8 +13,8 @@ typedef struct {
 typedef struct {
     rb_anchor_t anchor;      // 48 bytes
     uint8_t sensory_data[600]; // Total: 648 bytes
-} rb_state_t;
+} rb_cluster_state_t;
 
 // 3. Static Governance Gates
 _Static_assert(sizeof(rb_anchor_t) == 48, "IDENTITY DRIFT: Anchor must be 48 bytes.");
-_Static_assert(sizeof(rb_state_t) == 648, "BODY DRIFT: Total state must be 648 bytes.");
+_Static_assert(sizeof(rb_cluster_state_t) == 648, "BODY DRIFT: Total state must be 648 bytes.");

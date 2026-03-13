@@ -1,8 +1,0 @@
-{
-  "version": "2.0.0",
-  "architecture": "Unified Cluster",
-  "state_size_bytes": 648,
-  "petal_count": 10,
-  "genesis_sequence": 1,
-  "status": "LOCKED"
-}

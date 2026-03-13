@@ -2,7 +2,7 @@
 #include "integrity.h"
 #include "crypto_engine.h"
 
-bool rb_verify_state_integrity(const rb_state_t *state) {
+bool rb_verify_state_integrity(const rb_cluster_state_t *state) {
     pico_unique_board_id_t board_id;
     pico_get_unique_board_id(&board_id);
 

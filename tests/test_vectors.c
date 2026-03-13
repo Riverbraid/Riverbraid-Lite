@@ -7,7 +7,7 @@
 
 void test_tamper_detection() {
     printf("[*] Starting Tamper Detection Test...\n");
-    rb_state_t state;
+    rb_cluster_state_t state;
     memset(&state, 0, sizeof(state));
     uint8_t key[8] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED, 0xCA, 0xFE};
 

@@ -13,7 +13,7 @@ echo -e "\n${BOLD}— Phase 0: Memory Structural Check —${RESET}"
 if grep -q "RB_STRUCT_SIZE 648" core/include/*.h 2>/dev/null; then
     echo -e "${GREEN}[PASS]${RESET} RB_STRUCT_SIZE verified at 648 bytes"
 else
-    echo -e "${YELLOW}[WARN]${RESET} Struct size definition not found. Checking source..."
+    echo -e "${YELLOW}[WARN]${RESET} 648-byte Resonance. Checking source..."
 fi
 
 echo -e "\n${BOLD}— Phase 0: Static Entropy Scan —${RESET}"

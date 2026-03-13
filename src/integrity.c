@@ -2,7 +2,7 @@
 #include "crypto_engine.h"
 #include <string.h>
 
-bool rb_verify_state_integrity_with_key(const rb_state_t *state, const uint8_t *key, size_t key_len) {
+bool rb_verify_state_integrity_with_key(const rb_cluster_state_t *state, const uint8_t *key, size_t key_len) {
     uint8_t computed_sig[32];
     hmac_sha256_ctx ctx;
 
