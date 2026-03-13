@@ -1,19 +1,20 @@
-#ifndef RB_CLUSTER_STATE_H
-#define RB_CLUSTER_STATE_H
+#include <stdint.h>
 
-/* * RB_STRUCT_SIZE: 648 Bytes
- * This value is mechanically fixed. 
- * Any modification triggers a static_assert failure.
- */
-#define RB_STRUCT_SIZE 648
-#define RB_PETAL_COUNT 10
+/* core/include/rb_cluster_state.h */
 
+// 1. The 48-Byte Identity Floor (The Anchor)
 typedef struct {
-    unsigned char version[4];     // 0-3
-    unsigned char sequence[8];    // 4-11
-    unsigned char petals[10][60]; // 12-611 (600 bytes)
-    unsigned char root_hash[32];  // 612-643
-    unsigned char padding[4];     // 644-647
-} rb_cluster_state_t;
+    uint8_t version[4];
+    uint8_t hardware_id[32];
+    uint8_t merkle_root[12]; // Total: 48 bytes
+} rb_anchor_t;
 
-#endif
+// 2. The 648-Byte Sovereign Body (The Triad)
+typedef struct {
+    rb_anchor_t anchor;      // 48 bytes
+    uint8_t sensory_data[600]; // Total: 648 bytes
+} rb_state_t;
+
+// 3. Static Governance Gates
+_Static_assert(sizeof(rb_anchor_t) == 48, "IDENTITY DRIFT: Anchor must be 48 bytes.");
+_Static_assert(sizeof(rb_state_t) == 648, "BODY DRIFT: Total state must be 648 bytes.");
