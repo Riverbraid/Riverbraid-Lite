@@ -1,0 +1,3 @@
+[submodule "cluster/Riverbraid-Audio-Gold"]
+	path = cluster/Riverbraid-Audio-Gold
+	url = https://github.com/Riverbraid/Riverbraid-Audio-Gold.git

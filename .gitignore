@@ -1,7 +1,5 @@
-node_modules/
-custodian_keys_secrets.json
-constitution.signature.json
-telemetry.json
-cluster/
-.DS_Store
 build/
+__pycache__/
+.DS_Store
+*.pyc
+255
