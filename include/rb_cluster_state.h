@@ -17,4 +17,9 @@ typedef struct __attribute__((packed)) {
     rb_petal_t petals[RB_PETAL_COUNT];
 } rb_cluster_state_t;
 
+// Compile-time guard for the 648-byte resonance
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
+_Static_assert(sizeof(rb_cluster_state_t) == 648, "RESONANCE DRIFT: rb_cluster_state_t is not 648 bytes!");
+#endif
+
 #endif
