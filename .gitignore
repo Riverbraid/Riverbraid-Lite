@@ -1,5 +1,18 @@
-build/
+# Binaries and Shared Libraries
+*.so
+*.o
+a.out
+test_audio
+test_full_cycle
+test_reseal
+test_sovereign_loop
+genesis_gen
+
+# Python Cache
 __pycache__/
+*.py[cod]
+*$py.class
+
+# Environment/OS
 .DS_Store
-*.pyc
-255
+.env
