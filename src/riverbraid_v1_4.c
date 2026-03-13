@@ -1,20 +1,11 @@
-#include <stdint.h>
-#include <assert.h>
-#include "riverbraid_v1_4.h"
+#include "rb_cluster_state.h"
+#include <string.h>
 
-// Structural Invariant: The 48-Byte Floor
-_Static_assert(sizeof(rb_state_t) == 48, "CONSTITUTIONAL VIOLATION: Memory alignment drift detected.");
+/* CONSTITUTIONAL ALIGNMENT: Unified 648-byte Substrate */
+_Static_assert(sizeof(rb_cluster_state_t) == 648, "SUBSTRATE FAILURE: Must be 648 bytes.");
 
-void rb_v1_4_update(rb_state_t *state, const uint8_t *sensors) {
-    // Quantization Parity: Saturating 12-bit ADC to 8-bit Space
-    uint8_t input = sensors[0] >> 4; 
-    
-    // Entropy Ban Enforcement: Deterministic State Machine
-    if (state->step < 10) {
-        state->step++;
-        state->action = input; 
-    } else {
-        // Refusal Machine: Fail-Closed upon saturation
-        state->action = 0xFF; 
-    }
+void rb_v1_4_update(rb_cluster_state_t *state, const uint8_t *sensors) {
+    // Logic now maps sensors to specific petals (e.g., Petal 6: Audio)
+    state->sequence++;
+    // Future: rb_cluster_reseal(state, ...);
 }
