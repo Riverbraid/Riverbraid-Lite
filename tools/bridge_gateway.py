@@ -35,25 +35,31 @@ rb.rb_petal_audio_update.argtypes = [ctypes.POINTER(RBClusterState), ctypes.POIN
 rb.rb_petal_action_commit.argtypes = [ctypes.POINTER(RBClusterState), ctypes.POINTER(ctypes.c_uint8), ctypes.c_uint8]
 rb.rb_cluster_reseal.argtypes = [ctypes.POINTER(RBClusterState), SHA256_CALLBACK]
 rb.rb_state_save_safe.argtypes = [ctypes.POINTER(RBClusterState), ctypes.c_char_p]
+rb.rb_state_load.argtypes = [ctypes.POINTER(RBClusterState), ctypes.c_char_p]
 
 # --- UTILITIES ---
+
+def safe_checkpoint(state, filename="cluster.bin"):
+    fname_bytes = filename.encode('utf-8')
+    res = rb.rb_state_save_safe(ctypes.byref(state), fname_bytes)
+    if res == 0:
+        print(f"💾 Checkpoint successful: {filename} (Seq: {state.sequence})")
+    else:
+        print(f"🚨 Checkpoint FAILED: {res}")
+    return res
 
 def stream_telemetry(state, target_ip="127.0.0.1", port=6480):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     raw_payload = bytes(state)
     sock.sendto(raw_payload, (target_ip, port))
-    print(f"🚀 Telemetry Streamed: {len(raw_payload)} bytes to {target_ip}:{port}")
+    # Quiet the output for the heartbeat loop
+    # print(f"🚀 Streamed {len(raw_payload)} bytes")
 
 def monitor(state):
     print(f"\n--- BRIDGE AUDIT (Seq: {state.sequence}) ---")
-    print(f"Petal 6 (Audio)  Status: {'[GOLD]' if state.petals[6].status == 1 else '[VOID]'}")
+    print(f"Petal 2 (Ledger) Status: {'[GOLD]' if state.petals[2].status == 1 else '[VOID]'}")
     print(f"Petal 8 (Action) Status: {'[GOLD]' if state.petals[8].status == 1 else '[VOID]'}")
-    if state.petals[2].status == 1:
-        print(f"Ledger Hash: {bytes(state.petals[2].hash).hex()[:16]}...")
 
-# 5. Prevent execution on import
 if __name__ == "__main__":
-    print("🛠️ Riverbraid Gateway: Standalone Diagnostic Mode")
     state = RBClusterState()
-    state.sequence = 100
     monitor(state)

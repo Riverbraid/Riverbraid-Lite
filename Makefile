@@ -48,3 +48,15 @@ stream: all
 	@echo "📡 State packet injected into network."
 vision: all
 	python3 tools/test_vision.py
+
+# --- PHASE 7: THE HEARTBEAT ---
+
+# Launch the autonomous sovereign loop
+heartbeat: all
+	python3 -m tools.heartbeat
+
+# --- PHASE 8: THE DASHBOARD ---
+
+# Launch the visual web dashboard
+dashboard:
+	python3 -m tools.dashboard
