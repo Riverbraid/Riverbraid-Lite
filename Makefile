@@ -33,3 +33,18 @@ clean:
 	rm -f $(LIB) test_sovereign_loop test_audio test_reseal test_full_cycle
 	@echo "🧹 Environment Sanitized."
 
+
+# --- PHASE 5: TELEMETRY TARGETS ---
+
+# Launch the listener (Run this in a second terminal)
+receive:
+	python3 tools/telemetry_node.py
+
+# Run a cycle and stream the result
+stream: all
+	@python3 -c "from tools.bridge_gateway import RBClusterState, stream_telemetry; \
+	import ctypes; s = RBClusterState(); s.sequence = 888; \
+	s.petals[8].status = 1; stream_telemetry(s)"
+	@echo "📡 State packet injected into network."
+vision: all
+	python3 tools/test_vision.py

@@ -1,17 +1,27 @@
 import ctypes
 import hashlib
+import socket
 
-# 1. Structural Mapping (Verified 648B)
+# 1. Aligned Structural Mapping (Resonance 648B)
 class Petal(ctypes.Structure):
     _pack_ = 1
-    _fields_ = [("hash", ctypes.c_uint8 * 32), ("status", ctypes.c_uint8), ("reserved", ctypes.c_uint8 * 31)]
+    _fields_ = [
+        ("hash", ctypes.c_uint8 * 32),
+        ("status", ctypes.c_uint8),
+        ("reserved", ctypes.c_uint8 * 31),
+    ]
 
 class RBClusterState(ctypes.Structure):
     _pack_ = 1
-    _fields_ = [("sequence", ctypes.c_uint64), ("petals", Petal * 10)]
+    _fields_ = [
+        ("sequence", ctypes.c_uint64),
+        ("petals", Petal * 10),
+    ]
 
-# 2. Define the Callback Type for SHA256
-# void (*sha256)(const uint8_t*, size_t, uint8_t*)
+# 2. Load the Sovereign Library
+rb = ctypes.CDLL("./librb_core.so")
+
+# 3. Callback for SHA256
 SHA256_CALLBACK = ctypes.CFUNCTYPE(None, ctypes.POINTER(ctypes.c_uint8), ctypes.c_size_t, ctypes.POINTER(ctypes.c_uint8))
 
 @SHA256_CALLBACK
@@ -20,53 +30,30 @@ def python_sha256(data_ptr, length, out_ptr):
     digest = hashlib.sha256(data).digest()
     ctypes.memmove(out_ptr, digest, 32)
 
-# 3. Load Library and Configure Signatures
-rb = ctypes.CDLL("./librb_core.so")
+# 4. Configure Function Signatures
 rb.rb_petal_audio_update.argtypes = [ctypes.POINTER(RBClusterState), ctypes.POINTER(ctypes.c_uint8)]
 rb.rb_petal_action_commit.argtypes = [ctypes.POINTER(RBClusterState), ctypes.POINTER(ctypes.c_uint8), ctypes.c_uint8]
 rb.rb_cluster_reseal.argtypes = [ctypes.POINTER(RBClusterState), SHA256_CALLBACK]
+rb.rb_state_save_safe.argtypes = [ctypes.POINTER(RBClusterState), ctypes.c_char_p]
+
+# --- UTILITIES ---
+
+def stream_telemetry(state, target_ip="127.0.0.1", port=6480):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    raw_payload = bytes(state)
+    sock.sendto(raw_payload, (target_ip, port))
+    print(f"🚀 Telemetry Streamed: {len(raw_payload)} bytes to {target_ip}:{port}")
 
 def monitor(state):
     print(f"\n--- BRIDGE AUDIT (Seq: {state.sequence}) ---")
-    print(f"Petal 2 (Ledger) Status: {'[GOLD]' if state.petals[2].status == 1 else '[VOID]'}")
+    print(f"Petal 6 (Audio)  Status: {'[GOLD]' if state.petals[6].status == 1 else '[VOID]'}")
+    print(f"Petal 8 (Action) Status: {'[GOLD]' if state.petals[8].status == 1 else '[VOID]'}")
     if state.petals[2].status == 1:
         print(f"Ledger Hash: {bytes(state.petals[2].hash).hex()[:16]}...")
 
-# --- EXECUTION ---
-state = RBClusterState()
-state.sequence = 200
-
-# Ingest & Commit
-digest = hashlib.sha256(b"INIT_SIGNAL").digest()
-rb.rb_petal_audio_update(state, (ctypes.c_uint8 * 32).from_buffer_copy(digest))
-rb.rb_petal_action_commit(state, (ctypes.c_uint8 * 32)(*[0xEE]*32), 0x07)
-
-print("🧪 Triggering Reseal via Python Callback...")
-rb.rb_cluster_reseal(state, python_sha256)
-
-monitor(state)
-
-# --- PERSISTENCE LOGIC ---
-# Configure C-function signature for Safe Save
-rb.rb_state_save_safe.argtypes = [ctypes.POINTER(RBClusterState), ctypes.c_char_p]
-rb.rb_state_save_safe.restype = ctypes.c_int
-
-def safe_checkpoint(state, filename="cluster.bin"):
-    fname_bytes = filename.encode('utf-8')
-    res = rb.rb_state_save_safe(ctypes.byref(state), fname_bytes)
-    if res == 0:
-        print(f"💾 Checkpoint successful: {filename} (Seq: {state.sequence})")
-    else:
-        print(f"🚨 Checkpoint FAILED with code: {res}")
-    return res
-
-def sovereign_cycle(state, action_code):
-    """The complete Perceive -> Act -> Seal -> Save loop."""
-    # 1. Reseal using the callback we defined earlier
-    res = rb.rb_cluster_reseal(ctypes.byref(state), python_sha256)
-    if res != 0:
-        print(f"🚨 Reseal Failed: {res}")
-        return res
-    
-    # 2. Persist to disk
-    return safe_checkpoint(state)
+# 5. Prevent execution on import
+if __name__ == "__main__":
+    print("🛠️ Riverbraid Gateway: Standalone Diagnostic Mode")
+    state = RBClusterState()
+    state.sequence = 100
+    monitor(state)
