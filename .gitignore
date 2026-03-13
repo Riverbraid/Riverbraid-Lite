@@ -4,3 +4,4 @@ constitution.signature.json
 telemetry.json
 cluster/
 .DS_Store
+build/
