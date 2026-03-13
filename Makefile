@@ -7,7 +7,7 @@ LDFLAGS = -L. -lrb_core
 LIB = librb_core.so
 
 # Source Files
-SRC = src/petal_audio.c src/petal_vision.c src/petal_action.c src/rb_reseal.c
+SRC = src/petal_audio.c src/petal_vision.c src/petal_action.c src/rb_reseal.c src/rb_persistence.c
 
 .PHONY: all clean test monitor
 

@@ -45,3 +45,28 @@ print("🧪 Triggering Reseal via Python Callback...")
 rb.rb_cluster_reseal(state, python_sha256)
 
 monitor(state)
+
+# --- PERSISTENCE LOGIC ---
+# Configure C-function signature for Safe Save
+rb.rb_state_save_safe.argtypes = [ctypes.POINTER(RBClusterState), ctypes.c_char_p]
+rb.rb_state_save_safe.restype = ctypes.c_int
+
+def safe_checkpoint(state, filename="cluster.bin"):
+    fname_bytes = filename.encode('utf-8')
+    res = rb.rb_state_save_safe(ctypes.byref(state), fname_bytes)
+    if res == 0:
+        print(f"💾 Checkpoint successful: {filename} (Seq: {state.sequence})")
+    else:
+        print(f"🚨 Checkpoint FAILED with code: {res}")
+    return res
+
+def sovereign_cycle(state, action_code):
+    """The complete Perceive -> Act -> Seal -> Save loop."""
+    # 1. Reseal using the callback we defined earlier
+    res = rb.rb_cluster_reseal(ctypes.byref(state), python_sha256)
+    if res != 0:
+        print(f"🚨 Reseal Failed: {res}")
+        return res
+    
+    # 2. Persist to disk
+    return safe_checkpoint(state)
