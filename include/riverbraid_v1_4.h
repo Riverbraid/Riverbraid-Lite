@@ -23,3 +23,9 @@ void rb_v1_4_update(rb_state_t *state, const uint8_t *sensors);
 #endif
 
 #endif
+
+/* GENESIS GUARD: Deterministic State Invariant */
+#include <assert.h>
+#include <stddef.h>
+
+_Static_assert(sizeof(rb_state_t) == 648, "CRITICAL: State size must be exactly 648 bytes for v1.4.0 resonance");
