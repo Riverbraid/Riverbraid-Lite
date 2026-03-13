@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Riverbraid Terminal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body { font-family: 'Courier New', monospace; background: #0a0a0a; color: #00ff00; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 20px; }
+        .petal { border: 1px solid #114411; padding: 15px; text-align: center; border-radius: 4px; background: #051105; }
+        .gold { border-color: #ffd700; box-shadow: 0 0 15px #ffd700; color: #ffd700; background: #1a1a00; }
+        .controls { background: #111; padding: 20px; border: 1px solid #333; margin-top: 30px; }
+        button { background: #00ff00; color: #000; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #ffd700; }
+        input { color: #00ff00; background: #222; border: 1px solid #444; padding: 5px; }
+    </style>
+</head>
+<body>
+    <h1>RIVERBRAID-LITE TERMINAL</h1>
+    <div>RESONANCE SEQ: <span id="seq">0</span></div>
+    
+    <div id="petals" class="grid"></div>
+
+    <div class="controls">
+        <h3>CLUSTER COMMANDS</h3>
+        <input type="file" id="visionInput" accept="image/*">
+        <button onclick="uploadVision()">UPLOAD VISION</button>
+        <hr style="border:0; border-top:1px solid #333; margin: 20px 0;">
+        <button onclick="triggerFeedback()">TRIGGER NEURAL FEEDBACK</button>
+    </div>
+
+    <script>
+        const socket = io();
+        socket.on('state_update', (data) => {
+            document.getElementById('seq').innerText = data.sequence;
+            const container = document.getElementById('petals');
+            container.innerHTML = '';
+            data.petals.forEach((p, i) => {
+                const names = ["AUDIO", "VISION", "LEDGER", "P3", "P4", "P5", "P6", "P7", "ACTION", "P9"];
+                const div = document.createElement('div');
+                div.className = `petal ${p.status === 1 ? 'gold' : ''}`;
+                div.innerHTML = `<strong>${names[i]}</strong><br>${p.status === 1 ? 'GOLD' : 'VOID'}<br><small>${p.hash}</small>`;
+                container.appendChild(div);
+            });
+        });
+
+        async function uploadVision() {
+            const file = document.getElementById('visionInput').files[0];
+            if (!file) return;
+            const formData = new FormData();
+            formData.append('file', file);
+            await fetch('/upload_vision', { method: 'POST', body: formData });
+        }
+
+        async function triggerFeedback() {
+            await fetch('/trigger_feedback', { method: 'POST' });
+        }
+    </script>
+</body>
+</html>
