@@ -1,7 +1,9 @@
 {
-  "system_version": "1.4.0-GOLD",
-  "build_anchor": "ecdb5985747d937eba237b90bce187fae27c28d22a2d2020de27b7929d8c5edb",
-  "nervous_system": "C11-PROVABLE",
-  "status": "SATURATED",
-  "merkle_root": "f4afe9c2648_INSTANTIATED"
+  "version": "1.4.0",
+  "status": "GOLD",
+  "merkle_root": "f4afe9c2",
+  "gate_locked": true,
+  "identity_floor_bytes": 48,
+  "total_state_bytes": 648,
+  "timestamp": "2026-03-13T20:34:00Z"
 }
