@@ -2,42 +2,64 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const IGNORE = ['constitution.snapshot.json', '.git', 'node_modules', '.DS_Store'];
+const ROOT = process.cwd();
 
-function hashFile(file) {
-  const content = fs.readFileSync(file);
-  return crypto.createHash('sha256').update(content).digest('hex');
-}
+function getSnapshot(dir = ROOT) {
+  const files = [];
+  function walk(current) {
+    const resolved = path.resolve(current);
+    
+    // INVARIANT: Absolute Path Containment
+    if (!resolved.startsWith(ROOT)) return;
+    if (!fs.existsSync(resolved)) return;
 
-function walk(dir) {
-  let results = [];
-  const list = fs.readdirSync(dir);
-  list.sort().forEach(file => {
-    if (IGNORE.includes(file)) return;
-    const fullPath = path.join(dir, file);
-    const stat = fs.statSync(fullPath);
-    if (stat && stat.isDirectory()) {
-      results = results.concat(walk(fullPath));
-    } else {
-      results.push({ file: path.relative(process.cwd(), fullPath), hash: hashFile(fullPath) });
+    const entries = fs.readdirSync(resolved, { withFileTypes: true });
+    for (const entry of entries) {
+      const full = path.join(resolved, entry.name);
+
+      // EXCLUSIONS
+      if (
+        entry.name === '.git' || 
+        entry.name === 'node_modules' || 
+        entry.name === '.codespaces' || 
+        entry.name === 'constitution.snapshot.json'
+      ) continue;
+
+      if (entry.isDirectory()) {
+        walk(full);
+      } else if (entry.isFile()) {
+        files.push(full);
+      }
     }
-  });
-  return results;
+  }
+  walk(dir);
+  return files.sort();
 }
 
-const mode = process.argv[2];
-const files = walk(process.cwd());
-const manifestHash = crypto.createHash('sha256').update(JSON.stringify(files)).digest('hex');
+function generateHash() {
+  const files = getSnapshot();
+  const hasher = crypto.createHash('sha256');
+  files.forEach(file => {
+    const buf = fs.readFileSync(file);
+    if (buf.length > 0 && buf[buf.length - 1] !== 0x0a) {
+      throw new Error(`LF_VIOLATION:${path.relative(ROOT, file)}`);
+    }
+    hasher.update(buf);
+  });
+  return hasher.digest('hex');
+}
 
-if (mode === 'snapshot') {
-  fs.writeFileSync('constitution.snapshot.json', JSON.stringify({ sha256: manifestHash, files }, null, 2));
-  console.log('Snapshot Generated: ' + manifestHash);
-} else if (mode === 'verify') {
-  const snap = JSON.parse(fs.readFileSync('constitution.snapshot.json'));
-  if (manifestHash !== snap.sha256) {
-    console.error('Actual:', manifestHash);
-    console.error('Expected:', snap.sha256);
-    throw new Error("CRITICAL: State Drift Detected.");
-  }
-  console.log('Verification Success: ' + manifestHash);
+const command = process.argv[2];
+const snapPath = path.join(ROOT, 'constitution.snapshot.json');
+
+if (command === 'snapshot') {
+  const hash = generateHash();
+  fs.writeFileSync(snapPath, JSON.stringify({ sha256: hash }, null, 2) + '\n');
+  console.log('Snapshot Generated.');
+} else if (command === 'verify') {
+  const currentHash = generateHash();
+  if (!fs.existsSync(snapPath)) throw new Error("Missing snapshot.");
+  const snap = JSON.parse(fs.readFileSync(snapPath, 'utf8'));
+  if (currentHash !== snap.sha256) throw new Error("CRITICAL: State Drift Detected.");
+  console.log('VERIFIED: Floor is Stationary.');
 }
