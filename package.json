@@ -1,0 +1,10 @@
+{
+  "name": "riverbraid-lite",
+  "version": "1.5.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "snapshot": "node run-vectors.cjs snapshot || node bin/run-vectors.cjs snapshot",
+    "verify": "node run-vectors.cjs verify || node bin/run-vectors.cjs verify"
+  }
+}
