@@ -1,65 +1,48 @@
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 
-const ROOT = process.cwd();
-
-function getSnapshot(dir = ROOT) {
-  const files = [];
-  function walk(current) {
-    const resolved = path.resolve(current);
-    
-    // INVARIANT: Absolute Path Containment
-    if (!resolved.startsWith(ROOT)) return;
-    if (!fs.existsSync(resolved)) return;
-
-    const entries = fs.readdirSync(resolved, { withFileTypes: true });
-    for (const entry of entries) {
-      const full = path.join(resolved, entry.name);
-
-      // EXCLUSIONS
-      if (
-        entry.name === '.git' || 
-        entry.name === 'node_modules' || 
-        entry.name === '.codespaces' || 
-        entry.name === 'constitution.snapshot.json'
-      ) continue;
-
-      if (entry.isDirectory()) {
-        walk(full);
-      } else if (entry.isFile()) {
-        files.push(full);
-      }
-    }
+const checkFloor = (label, buf) => {
+  if (buf.length === 0 || buf[buf.length - 1] !== 0x0a) throw new Error(`LF_VIOLATION:${label}`);
+  for (let i = 0; i < buf.length; i++) {
+    const b = buf[i];
+    if ((b < 32 && b !== 9 && b !== 10 && b !== 13) || b > 126) throw new Error(`ILLEGAL_BYTE:${label}:${i}`);
   }
-  walk(dir);
-  return files.sort();
-}
+};
 
-function generateHash() {
-  const files = getSnapshot();
-  const hasher = crypto.createHash('sha256');
-  files.forEach(file => {
-    const buf = fs.readFileSync(file);
-    if (buf.length > 0 && buf[buf.length - 1] !== 0x0a) {
-      throw new Error(`LF_VIOLATION:${path.relative(ROOT, file)}`);
-    }
-    hasher.update(buf);
-  });
-  return hasher.digest('hex');
-}
+const getSnapshot = (root) => {
+  const snapshot = {};
+  const walk = (dir) => {
+    fs.readdirSync(dir).forEach(name => {
+      const fullPath = path.join(dir, name);
+      const stats = fs.statSync(fullPath);
+      const label = path.relative(root, fullPath);
 
-const command = process.argv[2];
-const snapPath = path.join(ROOT, 'constitution.snapshot.json');
+      // SCOPE GATE: Ignore hidden files, assets, and node_modules
+      if (name.startsWith('.') || name === 'assets' || name === 'node_modules' || name === 'dist') return;
 
-if (command === 'snapshot') {
-  const hash = generateHash();
-  fs.writeFileSync(snapPath, JSON.stringify({ sha256: hash }, null, 2) + '\n');
-  console.log('Snapshot Generated.');
-} else if (command === 'verify') {
-  const currentHash = generateHash();
-  if (!fs.existsSync(snapPath)) throw new Error("Missing snapshot.");
-  const snap = JSON.parse(fs.readFileSync(snapPath, 'utf8'));
-  if (currentHash !== snap.sha256) throw new Error("CRITICAL: State Drift Detected.");
-  console.log('VERIFIED: Floor is Stationary.');
+      if (stats.isDirectory()) {
+        walk(fullPath);
+      } else {
+        // EXTENSION GATE: Only check text-based source/config files
+        if (!label.match(/\.(cjs|json|md|txt|js|yaml|yml)$/)) return;
+        const buf = fs.readFileSync(fullPath);
+        checkFloor(label, buf);
+        snapshot[label] = buf.toString('hex');
+      }
+    });
+  };
+  walk(root);
+  return snapshot;
+};
+
+const cmd = process.argv[2];
+if (cmd === 'snapshot') {
+  const snap = getSnapshot(process.cwd());
+  fs.writeFileSync('constitution.snapshot.json', JSON.stringify(snap, null, 2) + '\n');
+  console.log('Snapshot written.');
+} else if (cmd === 'verify') {
+  const current = getSnapshot(process.cwd());
+  const saved = JSON.parse(fs.readFileSync('constitution.snapshot.json', 'utf8'));
+  if (JSON.stringify(current) !== JSON.stringify(saved)) throw new Error('INTEGRITY_DRIFT');
+  console.log('[OK] Byte-floor clean.');
 }
