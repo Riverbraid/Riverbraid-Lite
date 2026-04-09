@@ -1,15 +1,22 @@
-# Riverbraid Lite (v1.5.0)
+<div align="center">
 
-## 1. Nature of the System
-Riverbraid is a **Deterministic Kernel**. It does not possess "truth" regarding the physical world; it possesses "integrity" regarding the digital record it consumes. It is a system of **Witness**, not of **Judgment**.
+# ⬡ Riverbraid-Lite
 
-## 2. Core Architecture
-- **Layer 0 (Physical):** Enforced UTF-8/LF canonicalization.
-- **Layer 1 (Information):** Sealed Constitutional Quad (Scope, Resilience, Survivability, Durability).
-- **Layer 2 (Execution):** Deterministic state transitions anchored to the Genesis Root.
+### The Embedded Kernel
 
-## 3. Verification
-The integrity of this repository can be verified using the signed proof in `PROOFS/v1.5.0_resonance_proof.json`.
+**A deterministic 648-byte state engine for the RP2040 microcontroller.**
 
----
-*This repository is a node in the Riverbraid Cluster. Its state is governed by its internal invariants, independent of steward intent.*
+</div>
+
+## Features
+
+* **Immutable Memory:** Verified by the Genesis Bridge Hash at boot.
+* **Cryptographically Final:** Transitions are sealed via HMAC-SHA256.
+* **Cross-Language:** Seamless struct mapping between C and Python.
+
+## Audit
+
+```bash
+make
+make test
+```
