@@ -1,10 +1,9 @@
 {
   "name": "riverbraid-lite",
-  "version": "1.5.0",
-  "private": true,
-  "type": "commonjs",
-  "scripts": {
-    "snapshot": "node run-vectors.cjs snapshot",
-    "verify": "node run-vectors.cjs verify"
+  "version": "1.0.0",
+  "main": "riverbraid-proxy.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0"
   }
 }
