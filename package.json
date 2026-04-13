@@ -1,11 +1,6 @@
 {
   "name": "riverbraid-lite",
-  "version": "1.0.0",
-  "main": "riverbraid-proxy.js",
-  "dependencies": {
-    "express": "^4.18.2",
-    "axios": "^1.6.0"
-  },
+  "version": "1.5.0",
   "scripts": {
     "verify": "node run-vectors.cjs verify"
   }
