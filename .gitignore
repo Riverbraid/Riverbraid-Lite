@@ -5,3 +5,11 @@ Thumbs.db
 *.tmp
 .vscode/
 .idea/
+a.out
+*.o
+-*.o
+librb_core.so
+genesis_gen
+255
+node
+*.bin
