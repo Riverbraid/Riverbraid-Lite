@@ -1,1 +1,4 @@
-{"threshold": 1, "keys": ["ssh-ed25519 AAA... Custodian1", "ssh-ed25519 AAA... Custodian2"]}
+{
+  "threshold": 1,
+  "verifier_integrity": "8f857fab8b2f55a703e71e6562e701117c640f3205a00da0529dc45c42468090"
+}
