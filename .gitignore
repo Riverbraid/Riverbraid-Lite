@@ -13,3 +13,10 @@ genesis_gen
 255
 node
 *.bin
+*.o
+*.so
+*.bin
+a.out
+genesis_gen
+node
+CMakeLists_temp.txt
