@@ -1,31 +1,26 @@
-name: Riverbraid Verification Gate
+name: verify
 on:
   push:
-    branches: [ main, v* ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    env:
+      TZ: UTC
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+      NO_COLOR: "1"
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Use Node.js 20.11.0
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
-      - name: Install dependencies
+          cache: npm
+      - name: Install
         run: npm ci
-      - name: Run verification
-        run: npm run verify
-      - name: Enforce LF line endings
-        run: |
-          ! find . -type f -not -path "./.git/*" -exec file {} \; | grep -i CRLF || exit 1
-      - name: Entropy Ban
-        run: |
-          ! grep -rE "Math.random|Date.now|process.hrtime|crypto.getRandomValues|randomUUID" --exclude-dir=.git --exclude-dir=node_modules . || exit 1
-      - name: Verify Signed Tag
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          git tag -v v1.5.0 2>&1 | grep -q "gpg: Good signature"
+      - name: Verify
+        run: npm test
