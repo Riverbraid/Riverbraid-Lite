@@ -1,6 +1,6 @@
 {
   "version": "1.5.0",
-  "merkle_root": "c7dc1c2249ea0f2eee19d3ea1e1f5d0d28720734847ea3cd5da6eac6acc01b69",
+  "merkle_root": "9dc107e6b477cf3d34d61c2771fbc0d9210a09d16e444c98bf69a7c5fb777b7b",
   "files": [
     {
       "path": ".anchor",
@@ -16,6 +16,11 @@
       "path": ".gitignore",
       "sha256": "fe2460e728641820bdb5536b2b9b59c4f23ea6c3658b8d7985a853790e111e52",
       "leaf": "d1e35b314b48e20aa28cca2cf625508340f121baef8b12b9a5637195cd44ecde"
+    },
+    {
+      "path": ".riverbraid/authority.json",
+      "sha256": "07f257326f51e01fa0583239ac3bada36677387d5a5926e6f5f7de19e0aa18ee",
+      "leaf": "470ead82a2a4f7b999fe48c6601483205e427197af55ec09adeae3b5b92f99a6"
     },
     {
       "path": ".stationary-seal",
@@ -49,8 +54,8 @@
     },
     {
       "path": "constitution.threshold.json",
-      "sha256": "64c787487a94a10a4d9611d8265fe60364aff41af5a0f13a322120dc344899c7",
-      "leaf": "ea31a0c060bfdb0246d0fc812dee293b67aae0d51eebf5004d5849896fccdff0"
+      "sha256": "4ee348735d3e4e050b55a863701e7f210fccde007eab9101a658ac65eab78595",
+      "leaf": "d30fa0dd36ecf97221b8dba1d4a23c1ea19579c2f01fac399abe0c6e40f91385"
     },
     {
       "path": "constitutional/DURABILITY.md",
@@ -204,8 +209,8 @@
     },
     {
       "path": "SECURITY.md",
-      "sha256": "e5b9e82de0305fb04235aa90d03538979403d11d44f64f5567ba6ee41784a62d",
-      "leaf": "1d7a5ff2dca6001e079406aa37d99e1784170c9567f57f3c6184a7feef67daa7"
+      "sha256": "3985dcf7f58d6697d1ef0b2aec0027370a223d0df459e545b4a0a126f53292e0",
+      "leaf": "5a397a68310e192a452cd3c12a3ad1f56384e11c7e7396b4f09fc99b93f3ada1"
     },
     {
       "path": "SHA256SUMS",
@@ -216,6 +221,11 @@
       "path": "SOVEREIGN-ENVIRONMENT.md",
       "sha256": "66dfdddbc560f21a35ca44a5ce98b56296f3ba0ee3fdf924e1974e05eecadf3b",
       "leaf": "7bfd54d79245b0b70df145e5b531e5513a77fa845ac3df822ecde27e19ee43ab"
+    },
+    {
+      "path": "SPEC.md",
+      "sha256": "097ab262d5655624874c0e0f059deddd93808a3f5a129777fcf7844501c49afa",
+      "leaf": "83891eefed21fafe1fa70cb83652fed329130dbc4b345a24c2d9cf2bb653ffe7"
     },
     {
       "path": "src/hierarchy.js",
@@ -231,6 +241,11 @@
       "path": "temporal-bridge.cjs",
       "sha256": "79a05febb750bd1e2d2e87c12019a9266c3ed39a0080c332ae45a4be6a44edbd",
       "leaf": "b4f83a332aadba60d558ebfb851aa3b6dcf2cd56f5481b2926193b9f6e34a4ca"
+    },
+    {
+      "path": "test-gate.sh",
+      "sha256": "761a5ffdba2f228d4a7713aa0d2dd1948aea9e9cefa5e09431adbff2f8b9f115",
+      "leaf": "bc1866f9c473af5eaf1df8296d2ca7427ab66c2554a9f78937a5f93927db112f"
     },
     {
       "path": "TRUTH.SEAL",
