@@ -1,13 +1,1 @@
-const fs = require('fs');
-
-function verifyEnvelope(result) {
-  const required = ["repo", "status", "timestamp", "phase", "vector_hash"];
-  const missing = required.filter(key => !result.hasOwnProperty(key));
-  
-  if (missing.length > 0) {
-    return { status: "fail", message: `Missing fields: ${missing.join(', ')}` };
-  }
-  return { status: "pass", message: "Envelope valid" };
-}
-
-module.exports = { verifyEnvelope };
+export function verify(i){ const s = (i.repo==="Riverbraid-Lite" && i.ring===2 && i.role==="embedded-port" && i.header==="include/riverbraid_lite.h" && i.cmake_target==="riverbraid_lite"); return {pass:s, stationary:s, signal:s?"lite:HEADER_STATIONARY":"lite:HEADER_DRIFT", reason:s?"Match":"Drift"}; }

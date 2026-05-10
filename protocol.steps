@@ -1,0 +1,1 @@
+{"schema":"riverbraid.protocol.steps","version":"1.0.0","canonical_input":{"repo":"Riverbraid-Lite","ring":2,"role":"embedded-port","header":"include/riverbraid_lite.h","cmake_target":"riverbraid_lite"}}

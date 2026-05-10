@@ -1,10 +1,1 @@
-{
-  "name": "riverbraid-lite",
-  "version": "1.0.0",
-  "scripts": {
-    "test": "jest"
-  },
-  "devDependencies": {
-    "jest": "^29.0.0"
-  }
-}
+{"name":"riverbraid-lite","version":"1.0.0","type":"module","scripts":{"verify":"node verify.mjs"},"riverbraid":{"ring":2,"role":"embedded-port","invariant":"LITE_HEADER_STATIONARY","claim_boundary":"deterministic-infrastructure-contract-only"}}

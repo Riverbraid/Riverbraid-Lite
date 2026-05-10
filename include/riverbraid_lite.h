@@ -1,0 +1,5 @@
+#ifndef RIVERBRAID_LITE_H
+#define RIVERBRAID_LITE_H
+#define RIVERBRAID_LITE_REPO "Riverbraid-Lite"
+#define RIVERBRAID_LITE_RING 2
+#endif

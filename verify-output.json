@@ -1,23 +1,25 @@
 {
+  "schema": "riverbraid.infrastructure.verify.output",
+  "version": "1.0.0",
   "repo": "Riverbraid-Lite",
   "ring": 2,
-  "class": "embedded-port",
-  "verification_scope": "ring2-embedded-port-anchor-and-file-surface",
-  "claim_boundary": "infrastructure-classification-only",
-  "expected_anchor": "STATIONARY_STATE_V2_20260425-092050",
+  "role": "embedded-port",
+  "invariant": "LITE_HEADER_STATIONARY",
+  "contract_type": "embedded-header-contract",
+  "status": "VERIFIED",
+  "canonical_signal": "lite:HEADER_STATIONARY",
+  "canonical_reason": "Match",
+  "digest": "sha256:1a1b8f621b848870cab7d06d21d2443b713a5e17383bee446665044d6976585f",
   "required_files": [
-    ".anchor",
+    "package.json",
+    "index.js",
+    "verify.mjs",
+    "protocol.steps",
     "AUTHORITY.md",
     "RING.md",
-    "package.json",
     "CMakeLists.txt",
-    "verify.mjs"
+    "include/riverbraid_lite.h"
   ],
-  "status": "VERIFIED",
-  "observed_anchor": "STATIONARY_STATE_V2_20260425-092050",
-  "anchor_matches": true,
-  "structural_artifact_present": true,
   "missing_files": [],
-  "failure_codes": [],
-  "digest": "sha256:20ff31b4e6e7fc0fe3b85cada3b89b8c6ea105253d4aa9f1abd2bc18483bafd9"
+  "failure_codes": []
 }
